@@ -10,12 +10,14 @@ import java.io.PrintWriter;
 
 // 인터넷주소와 물리적인파일 매핑
 @Controller
-public class MainPage {
+public class MainController {
 
     @RequestMapping("/")
     public String index() {
-        return "Index Page";
+
+        return "index";  // 자동으로 매핑되게 해줌! templates의 index 파일로!
     }
+
 
     //request -> web -> server
     //response -> server -> web
@@ -39,4 +41,5 @@ public class MainPage {
         printWriter.write(msg);
         printWriter.close();
     }
+
 }
