@@ -1,6 +1,5 @@
 package com.zerobase.lms.member.controller;
 
-import com.zerobase.lms.member.entity.Member;
 import com.zerobase.lms.member.model.MemberInput;
 import com.zerobase.lms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -10,15 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
-
 
     @GetMapping("/member/register")
     public String register() {

@@ -14,3 +14,13 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: huejo@lalala.ac.kr
+    password: qwertyqwertyqwerty
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true

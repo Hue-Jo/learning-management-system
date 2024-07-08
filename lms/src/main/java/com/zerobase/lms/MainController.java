@@ -1,5 +1,7 @@
 package com.zerobase.lms;
 
+import com.zerobase.lms.component.MailComponent;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,12 +11,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 // 인터넷주소와 물리적인파일 매핑
+@RequiredArgsConstructor
 @Controller
 public class MainController {
+
+    private final MailComponent mailComponents;
 
     @RequestMapping("/")
     public String index() {
 
+        String email = "huejo@lalala.ac.kr";
+        String subject = "안녕하세요 제로베이스입니다!";
+        String text = "<p> 안녕하세요. </p> <p> 반갑습니다. </p>";
+        mailComponents.sendMail(email, subject, text);
         return "index";  // 자동으로 매핑되게 해줌! templates의 index 파일로!
     }
 
