@@ -17,4 +17,7 @@ public class Member {
     private String phone;
     private String password;
     private LocalDateTime registerTime;
+
+    private boolean emailAuthYn;
+    private String emailAuthKey;
 }
