@@ -6,6 +6,12 @@
 </head>
 <body>
     <h1> 회원 활성화 </h1>
-    <p> 회원님의 계정이 활성화되었습니다. </p>
+
+    <div th:if="${result eq true}">
+        <p> 회원님의 계정이 활성화되었습니다.</p>
+    </div>
+    <div th:if="${result eq false}">
+        <p> 회원님의 계정 활성화를 실패했습니다.</p>
+    </div>
 </body>
 </html>

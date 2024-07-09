@@ -30,24 +30,23 @@ public class MemberServiceImpl implements MemberService {
         }
 
         String uuid = UUID.randomUUID().toString();
-        Member member = new Member();
 
-        member.setUserId(parameter.getUserId());
-        member.setUserName(parameter.getUserName());
-        member.setPhone(parameter.getPhone());
-        member.setPassword(parameter.getPassword());
-        member.setRegisterTime(LocalDateTime.now());
-
-        member.setEmailAuthYn(false);
-        member.setEmailAuthKey(uuid);
-
+        Member member = Member.builder()
+                .userId(parameter.getUserId())
+                .userName(parameter.getUserName())
+                .phone(parameter.getPhone())
+                .password(parameter.getPassword())
+                .registerTime(LocalDateTime.now())
+                .emailAuthYn(false)
+                .emailAuthKey(uuid)
+                .build();
         memberRepository.save(member);
 
         String email = parameter.getUserId();
         String subject = "LMS 사이트 가입을 축하드립니다 :) ";
         String text = "<p> Zerobase LMS 사이트 가입을 축하드립니다. </p>" +
                 "<p> 아래 링크를 클릭하셔서 가입을 완료하세요! </p>" +
-                "<div><a href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 여기를 누르세요 </a> </div>";
+                "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 여기를 누르세요 </a> </div>";
         mailComponent.sendMail(email,subject,text);
         return true;
     }
