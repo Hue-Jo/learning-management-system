@@ -1,6 +1,7 @@
 package com.zerobase.lms.component;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,18 +16,10 @@ public class MailComponent {
 
     private final JavaMailSender javaMailSender;
 
-    public void sendMailTest() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("huejo@lalala.ac.kr");
-        message.setSubject("안녕하세요");
-        message.setText("안녕하세요 제로베이스입니다. 반갑습니다.");
-        javaMailSender.send(message);
-    }
 
     public boolean sendMail(String mail, String subject, String text) {
 
         boolean result = false;
-
         MimeMessagePreparator msg = new MimeMessagePreparator() {
 
             @Override
