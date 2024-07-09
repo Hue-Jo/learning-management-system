@@ -1,6 +1,7 @@
 package com.zerobase.lms.member.controller;
 
 import com.zerobase.lms.member.model.MemberInput;
+import com.zerobase.lms.member.model.ResetPasswordInput;
 import com.zerobase.lms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class MemberController {
         return "member/register";
     }
 
+
     @PostMapping("/member/register")
     public String registerSubmit(Model model,
                                  HttpServletRequest request,
@@ -33,6 +35,7 @@ public class MemberController {
 
         return "member/register_complete";
     }
+
 
     @GetMapping("/member/email-auth")
     public String emailAuth(Model model, HttpServletRequest request) {
@@ -47,19 +50,45 @@ public class MemberController {
 
     }
 
+
     @RequestMapping("/member/login")
     public String login() {
+
         return "member/login";
     }
 
+
     @GetMapping("/member/info")
     public String memberInfo(){
+
         return "member/info";
     }
 
+
     @GetMapping("/member/find/password")
     public String findPassWord(){
+
         return "member/find_password";
+    }
+
+
+    @PostMapping("/member/find/password")
+    public String findPasswordSubmit(Model model,
+                                     ResetPasswordInput parameter) {
+        boolean result = false;
+        try {
+            result = memberService.sendResetPassword(parameter);
+        } catch (Exception e) {
+
+        }
+        model.addAttribute("result", result);
+
+        return "member/find_password_result";
+    }
+
+    @GetMapping("/member/reset/password")
+    public String resetPassword() {
+        return "member/reset_password";
     }
 }
 

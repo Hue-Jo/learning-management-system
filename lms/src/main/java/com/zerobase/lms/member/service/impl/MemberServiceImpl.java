@@ -4,6 +4,7 @@ import com.zerobase.lms.components.MailComponent;
 import com.zerobase.lms.member.entity.Member;
 import com.zerobase.lms.member.exception.MemberNotEmailAuthException;
 import com.zerobase.lms.member.model.MemberInput;
+import com.zerobase.lms.member.model.ResetPasswordInput;
 import com.zerobase.lms.member.repository.MemberRepository;
 import com.zerobase.lms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -33,9 +34,9 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> optionalMember =
                 memberRepository.findById(parameter.getUserId());
-        if(optionalMember.isPresent()) {
+        if (optionalMember.isPresent()) {
             // 동일한 데이터 존재
-             return false;
+            return false;
         }
 
         String encPassword = BCrypt.hashpw(parameter.getPassword(), BCrypt.gensalt());
@@ -54,18 +55,18 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         String email = parameter.getUserId();
-        String subject = "LMS 사이트 가입을 축하드립니다 :) ";
+        String subject = "Zerobase LMS 사이트 가입을 축하드립니다 :) ";
         String text = "<p> Zerobase LMS 사이트 가입을 축하드립니다. </p>" +
                 "<p> 아래 링크를 클릭하셔서 가입을 완료하세요! </p>" +
                 "<div><a target='_blank' href='http://localhost:8080/member/email-auth?id=" + uuid + "'> 여기를 누르세요 </a> </div>";
-        mailComponent.sendMail(email,subject,text);
+        mailComponent.sendMail(email, subject, text);
         return true;
     }
 
     @Override
     public boolean emailAuth(String uuid) {
         Optional<Member> optionalMember = memberRepository.findByEmailAuthKey(uuid);
-        if(!optionalMember.isPresent()) {
+        if (!optionalMember.isPresent()) {
             return false;
         }
         Member member = optionalMember.get();
@@ -77,10 +78,41 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public boolean sendResetPassword(ResetPasswordInput parameter) {
+
+        Optional<Member> optionalMember =
+                memberRepository.findByUserIdAndUserName(
+                        parameter.getUserId(), parameter.getUserName()
+                );
+        if (!optionalMember.isPresent()) {
+            throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+        String uuid = UUID.randomUUID().toString();
+        member.setResetPasswordKey(uuid);
+        member.setResetPasswordLimitDt(LocalDateTime.now().plusDays(1));
+        memberRepository.save(member);
+
+        String email = parameter.getUserId();
+        String subject = "Zerobase LMS 계정의 비밀번호 초기화 메일입니다 :) ";
+        String text = "<p> 비밀번호 초기화를 위해 발송된 메일입니다. </p>" +
+                "<p> 아래 링크를 클릭하셔서 비밀번호를 초기화 해주세요! </p>" +
+                "<div>" +
+                    "<a target='_blank' " +
+                        "href='http://localhost:8080/member/reset/password?id=" +
+                                uuid +
+                    "'> 비밀번호를 초기화하려면 여기를 누르세요! </a> " +
+                "</div>";
+        mailComponent.sendMail(email, subject, text);
+            return true;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Member> optionalMember = memberRepository.findById(username);
-        if(!optionalMember.isPresent()) {
+        if (!optionalMember.isPresent()) {
             throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
         }
 
