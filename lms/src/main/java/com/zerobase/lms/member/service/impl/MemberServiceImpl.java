@@ -73,9 +73,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Member> optionalMember = memberRepository.findById(userName);
+        Optional<Member> optionalMember = memberRepository.findById(username);
         if(!optionalMember.isPresent()) {
             throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
         }

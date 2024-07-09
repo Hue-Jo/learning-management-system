@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/",
                         "/member/register",
-                        "/member/email_auth")
+                        "/member/email-auth")
                 .permitAll();
 
         http.formLogin()
@@ -47,10 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService)
                 .passwordEncoder(getPasswordEncoder());
-    }
 
+        super.configure(auth);
+    }
 
 }

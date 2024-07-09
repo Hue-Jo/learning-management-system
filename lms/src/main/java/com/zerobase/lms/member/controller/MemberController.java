@@ -20,7 +20,7 @@ public class MemberController {
     @GetMapping("/member/register")
     public String register() {
 
-        return "/member/register";
+        return "member/register";
     }
 
     @PostMapping("/member/register")
@@ -31,7 +31,7 @@ public class MemberController {
         boolean result = memberService.register(parameter);
         model.addAttribute("result", result);
 
-        return "register_complete";
+        return "member/register_complete";
     }
 
     @GetMapping("/member/email-auth")
@@ -43,23 +43,23 @@ public class MemberController {
         boolean result = memberService.emailAuth(uuid);
         model.addAttribute("result", result);
 
-        return "email_auth";
+        return "member/email_auth";
 
     }
 
     @RequestMapping("/member/login")
     public String login() {
-        return "/member/login";
+        return "member/login";
     }
 
     @GetMapping("/member/info")
     public String memberInfo(){
-        return "/member/info";
+        return "member/info";
     }
 
     @GetMapping("/member/find/password")
     public String findPassWord(){
-        return "find_password";
+        return "member/find_password";
     }
 }
 

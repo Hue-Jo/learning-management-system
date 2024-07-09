@@ -1,4 +1,4 @@
-package com.zerobase.lms.mainController;
+package com.zerobase.lms.maincontroller;
 
 import com.zerobase.lms.components.MailComponent;
 import lombok.RequiredArgsConstructor;
