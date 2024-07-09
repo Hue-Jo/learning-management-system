@@ -1,6 +1,6 @@
 package com.zerobase.lms.member.service.impl;
 
-import com.zerobase.lms.component.MailComponent;
+import com.zerobase.lms.components.MailComponent;
 import com.zerobase.lms.member.entity.Member;
 import com.zerobase.lms.member.model.MemberInput;
 import com.zerobase.lms.member.repository.MemberRepository;
