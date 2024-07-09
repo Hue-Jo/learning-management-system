@@ -31,7 +31,7 @@ public class MemberController {
         boolean result = memberService.register(parameter);
         model.addAttribute("result", result);
 
-        return "/member/register-complete";
+        return "register_complete";
     }
 
     @GetMapping("/member/email-auth")
@@ -43,7 +43,7 @@ public class MemberController {
         boolean result = memberService.emailAuth(uuid);
         model.addAttribute("result", result);
 
-        return "/member/email-auth";
+        return "email_auth";
 
     }
 
@@ -55,6 +55,11 @@ public class MemberController {
     @GetMapping("/member/info")
     public String memberInfo(){
         return "/member/info";
+    }
+
+    @GetMapping("/member/find/password")
+    public String findPassWord(){
+        return "find_password";
     }
 }
 
