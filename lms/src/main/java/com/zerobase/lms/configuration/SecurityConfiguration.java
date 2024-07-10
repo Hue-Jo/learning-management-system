@@ -42,10 +42,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/member/reset/password")
                 .permitAll();
 
+        http.authorizeRequests()
+                        .antMatchers("/admin/**")
+                        .hasAuthority("ROLE_ADMIN");
+
         http.formLogin()
                 .loginPage("/member/login")
                 .failureHandler(getFailureHandler())
                 .permitAll();
+
+        http.exceptionHandling()
+                        .accessDeniedPage("/error/denied");
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))

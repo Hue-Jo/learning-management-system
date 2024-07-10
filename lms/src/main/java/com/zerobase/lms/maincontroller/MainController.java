@@ -26,4 +26,9 @@ public class MainController {
         return "index";  // 자동으로 매핑되게 해줌! templates의 index 파일로!
     }
 
+    @RequestMapping("/error/denied")
+    public String errorDenied() {
+        return "error/denied";
+    }
+
 }
