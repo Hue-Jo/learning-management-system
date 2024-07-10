@@ -159,6 +159,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<Member> list() {
+
+        return memberRepository.findAll();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Member> optionalMember = memberRepository.findById(username);
