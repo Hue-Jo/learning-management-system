@@ -11,6 +11,8 @@ public class MemberParam {
     long pageIndex;
     long pageSize;
 
+    String userId;
+
     public long getPageStart(){
 
         init();
